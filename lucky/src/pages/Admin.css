@@ -1,0 +1,333 @@
+.admin-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1.5rem;
+}
+
+.login-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-card h1 {
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  color: #333;
+}
+
+.login-input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+.login-button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  background: #667eea;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background: #5568d3;
+}
+
+.login-hint {
+  text-align: center;
+  color: #666;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+
+.admin-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 2rem 1.5rem;
+}
+
+.admin-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.admin-header h1 {
+  margin: 0;
+  color: #333;
+}
+
+.home-link {
+  padding: 0.75rem 1.5rem;
+  background: #667eea;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.home-link:hover {
+  background: #5568d3;
+}
+
+.admin-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-section h2 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.animation-config {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.animation-input {
+  flex: 1;
+  padding: 0.875rem;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+
+.save-button {
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: #4ECDC4;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.save-button:hover {
+  background: #3db8af;
+}
+
+.help-text {
+  color: #666;
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0 0;
+}
+
+.fortune-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-input,
+.form-textarea {
+  padding: 0.875rem;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-color {
+  width: 80px;
+  height: 48px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.submit-button,
+.cancel-button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button {
+  background: #667eea;
+  color: white;
+}
+
+.submit-button:hover {
+  background: #5568d3;
+}
+
+.cancel-button {
+  background: #ddd;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background: #ccc;
+}
+
+.error-message {
+  color: #ff4444;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.fortune-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fortune-item {
+  padding: 1.25rem;
+  background: #f9f9f9;
+  border-left: 4px solid #667eea;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fortune-info {
+  flex: 1;
+}
+
+.fortune-info h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.fortune-info p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.fortune-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-button,
+.delete-button {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+  white-space: nowrap;
+}
+
+.edit-button {
+  background: #4ECDC4;
+  color: white;
+}
+
+.edit-button:hover {
+  background: #3db8af;
+}
+
+.delete-button {
+  background: #ff6b6b;
+  color: white;
+}
+
+.delete-button:hover {
+  background: #ee5a52;
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 1rem;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .home-link {
+    text-align: center;
+  }
+
+  .admin-section {
+    padding: 1.5rem;
+  }
+
+  .animation-config {
+    flex-direction: column;
+  }
+
+  .fortune-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fortune-actions {
+    justify-content: stretch;
+  }
+
+  .edit-button,
+  .delete-button {
+    flex: 1;
+  }
+}
