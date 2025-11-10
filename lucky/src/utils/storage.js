@@ -4,46 +4,81 @@ const STORAGE_KEYS = {
   ADMIN_PASSWORD: 'lucky_admin_password'
 };
 
-const DEFAULT_FORTUNES = [
-  {
-    id: 1,
-    title: '대길',
-    content: '오늘은 행운이 가득한 날! 새로운 시도를 해보세요. 예상치 못한 좋은 일이 생길 거예요.',
-    color: '#FF6B6B'
-  },
-  {
-    id: 2,
-    title: '중길',
-    content: '차근차근 노력하면 좋은 결과가 있을 거예요. 조급해하지 말고 한 걸음씩 나아가세요.',
-    color: '#4ECDC4'
-  },
-  {
-    id: 3,
-    title: '소길',
-    content: '작은 행복을 발견하는 하루가 될 거예요. 주변 사람들에게 감사함을 표현해보세요.',
-    color: '#95E1D3'
-  },
-  {
-    id: 4,
-    title: '평',
-    content: '평범한 하루지만 그 속에서 평온함을 느낄 수 있어요. 휴식을 취하기 좋은 날입니다.',
-    color: '#FFA07A'
-  },
-  {
-    id: 5,
-    title: '희망',
-    content: '어려움이 있더라도 희망을 잃지 마세요. 곧 좋은 일이 생길 거예요. 긍정적인 마음을 유지하세요.',
-    color: '#9B59B6'
-  }
-];
+// Google Sheets 설정
+const GOOGLE_SHEETS_ID = '1RKfDDjDHEc5Dm27wpul2nRoSQIeYReiOQWbOkwyyQ4w';
+const GOOGLE_SHEETS_CSV_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEETS_ID}/export?format=csv`;
 
 const DEFAULT_PASSWORD = 'admin1234';
 
-// 초기 데이터 설정
-export const initializeStorage = () => {
-  if (!localStorage.getItem(STORAGE_KEYS.FORTUNES)) {
-    localStorage.setItem(STORAGE_KEYS.FORTUNES, JSON.stringify(DEFAULT_FORTUNES));
+// CSV 파싱 함수
+const parseCSV = (csvText) => {
+  const lines = csvText.trim().split('\n');
+  const fortunes = [];
+
+  // 첫 번째 줄은 헤더이므로 건너뛰기
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i];
+    // CSV 파싱 (간단한 버전 - 따옴표 안의 쉼표 처리)
+    const values = [];
+    let currentValue = '';
+    let insideQuotes = false;
+
+    for (let j = 0; j < line.length; j++) {
+      const char = line[j];
+      if (char === '"') {
+        insideQuotes = !insideQuotes;
+      } else if (char === ',' && !insideQuotes) {
+        values.push(currentValue.trim());
+        currentValue = '';
+      } else {
+        currentValue += char;
+      }
+    }
+    values.push(currentValue.trim());
+
+    if (values.length >= 4) {
+      const [id, title, content, color] = values;
+      fortunes.push({
+        id: parseInt(id) || Date.now() + i,
+        title: title.replace(/^"|"$/g, ''),
+        content: content.replace(/^"|"$/g, ''),
+        color: color.replace(/^"|"$/g, '')
+      });
+    }
   }
+
+  return fortunes;
+};
+
+// Google Sheets에서 운세 데이터 가져오기
+export const fetchFortunesFromGoogleSheets = async () => {
+  try {
+    const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+    if (!response.ok) {
+      throw new Error('Failed to fetch Google Sheets data');
+    }
+    const csvText = await response.text();
+    const fortunes = parseCSV(csvText);
+    return fortunes;
+  } catch (error) {
+    console.error('Error fetching from Google Sheets:', error);
+    return [];
+  }
+};
+
+// 초기 데이터 설정
+export const initializeStorage = async () => {
+  // Google Sheets에서 운세 데이터 가져오기
+  if (!localStorage.getItem(STORAGE_KEYS.FORTUNES)) {
+    try {
+      const fortunes = await fetchFortunesFromGoogleSheets();
+      localStorage.setItem(STORAGE_KEYS.FORTUNES, JSON.stringify(fortunes));
+    } catch (error) {
+      console.error('Failed to initialize fortunes from Google Sheets:', error);
+      localStorage.setItem(STORAGE_KEYS.FORTUNES, JSON.stringify([]));
+    }
+  }
+
   if (!localStorage.getItem(STORAGE_KEYS.ADMIN_PASSWORD)) {
     localStorage.setItem(STORAGE_KEYS.ADMIN_PASSWORD, DEFAULT_PASSWORD);
   }
@@ -52,7 +87,7 @@ export const initializeStorage = () => {
 // 운세 관련 함수
 export const getFortunes = () => {
   const data = localStorage.getItem(STORAGE_KEYS.FORTUNES);
-  return data ? JSON.parse(data) : DEFAULT_FORTUNES;
+  return data ? JSON.parse(data) : [];
 };
 
 export const saveFortunes = (fortunes) => {

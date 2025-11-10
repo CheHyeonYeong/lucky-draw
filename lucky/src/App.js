@@ -7,7 +7,10 @@ import './App.css';
 
 function App() {
   useEffect(() => {
-    initializeStorage();
+    const init = async () => {
+      await initializeStorage();
+    };
+    init();
   }, []);
 
   return (
